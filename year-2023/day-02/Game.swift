@@ -9,35 +9,34 @@ import Foundation
 
 class Game {
     let id: Int
-    var subsets = [Subset]()
+    var cubes = [String:Int]()
 
     init(_ input: String) {
         let sections = input.split(separator: ": ")
         let gameAndIdParse = sections[0].split(separator: " ")
         id = Int(String(gameAndIdParse[1]))!
 
-        let setData = sections[1].split(separator: ";")
-        for subsetData in setData {
-            let subset = Subset(String(subsetData))
-            subsets.append(subset)
+        let data = sections[1]
+            .replacingOccurrences(of: ";", with: "")
+            .replacingOccurrences(of: ",", with: "")
+            .split(separator: " ")
+        for i in stride(from: 0, to: data.count, by: 2) {
+            let color = String(data[i + 1])
+            let value = Int(String(data[i]))!
+
+            if let currentValue = cubes[color] {
+                cubes[color] = max(currentValue, value)
+            } else {
+                cubes[color] = value
+            }
         }
     }
 
-    func isValid() -> Bool {
-        return subsets.filter { $0.isValid() }.count == subsets.count
+    var isValid: Bool {
+        return cubes["red"]! <= 12 && cubes["green"]! <= 13 && cubes["blue"]! <= 14
     }
 
-    func power() -> Int {
-        var red = 0
-        var green = 0
-        var blue = 0
-
-        for set in subsets {
-            red = max(red, set.red)
-            green = max(green, set.green)
-            blue = max(blue, set.blue)
-        }
-
-        return red * green * blue
+    var power: Int {
+        return cubes["red"]! * cubes["green"]! * cubes["blue"]!
     }
 }

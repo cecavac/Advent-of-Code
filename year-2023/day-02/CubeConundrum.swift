@@ -16,13 +16,13 @@ class CubeConundrum {
     }
 
     func validate() -> Int {
-        return games.filter { $0.isValid() }
+        return games.filter { $0.isValid }
             .map{ $0.id }
             .reduce(0, +)
     }
 
     func powerSum() -> Int {
-        return games.map { $0.power() }
+        return games.map { $0.power }
             .reduce(0, +)
     }
 }
