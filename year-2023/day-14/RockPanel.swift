@@ -26,85 +26,86 @@ class RockPanel {
     }
 
     func slideNorth() {
-        while true {
-            var changed = false
-
-            for i in 1..<height {
-                for j in 0..<width {
-                    if matrix[i][j] == "O" && matrix[i - 1][j] == "." {
-                        matrix[i - 1][j] = "O"
-                        matrix[i][j] = "."
-
-                        changed = true
+        for i in 1..<height {
+            for j in 0..<width {
+                if matrix[i][j] == "O" && matrix[i - 1][j] == "." {
+                    var newI = i
+                    for z in (0..<i).reversed() {
+                        if matrix[z][j] == "." {
+                            newI = z
+                        } else {
+                            break
+                        }
                     }
-                }
-            }
 
-            if !changed {
-                break
+                    let temp = matrix[newI][j]
+                    matrix[newI][j] = matrix[i][j]
+                    matrix[i][j] = temp
+
+                }
             }
         }
     }
 
     func slideWest() {
-        while true {
-            var changed = false
-
-            for j in 1..<width {
-                for i in 0..<height {
-                    if matrix[i][j] == "O" && matrix[i][j - 1] == "." {
-                        matrix[i][j - 1] = "O"
-                        matrix[i][j] = "."
-
-                        changed = true
+        for j in 1..<width {
+            for i in 0..<height {
+                if matrix[i][j] == "O" && matrix[i][j - 1] == "." {
+                    var newJ = j
+                    for z in (0..<j).reversed() {
+                        if matrix[i][z] == "." {
+                            newJ = z
+                        } else {
+                            break
+                        }
                     }
-                }
-            }
 
-            if !changed {
-                break
+                    let temp = matrix[i][newJ]
+                    matrix[i][newJ] = matrix[i][j]
+                    matrix[i][j] = temp
+                }
             }
         }
     }
 
     func slideSouth() {
-        while true {
-            var changed = false
-
-            for i in (0..<height - 1).reversed() {
-                for j in 0..<width {
-                    if matrix[i][j] == "O" && matrix[i + 1][j] == "." {
-                        matrix[i + 1][j] = "O"
-                        matrix[i][j] = "."
-
-                        changed = true
+        for i in (0..<height - 1).reversed() {
+            for j in 0..<width {
+                if matrix[i][j] == "O" && matrix[i + 1][j] == "." {
+                    var newI = i
+                    for z in i + 1..<height {
+                        if matrix[z][j] == "." {
+                            newI = z
+                        } else {
+                            break
+                        }
                     }
-                }
-            }
 
-            if !changed {
-                break
+                    let temp = matrix[newI][j]
+                    matrix[newI][j] = matrix[i][j]
+                    matrix[i][j] = temp
+                }
             }
         }
     }
 
     func slideEast() {
-        while true {
-            var changed = false
-
-            for j in (0..<width - 1).reversed() {
-                for i in 0..<height {
-                    if matrix[i][j] == "O" && matrix[i][j + 1] == "." {
-                        matrix[i][j + 1] = "O"
-                        matrix[i][j] = "."
-
-                        changed = true
+        for j in (0..<width - 1).reversed() {
+            for i in 0..<height {
+                if matrix[i][j] == "O" && matrix[i][j + 1] == "." {
+                    var newJ = j
+                    for z in j + 1..<width {
+                        if matrix[i][z] == "." {
+                            newJ = z
+                        } else {
+                            break
+                        }
                     }
-                }
-            }
 
-            if !changed {
-                break
+                    let temp = matrix[i][newJ]
+                    matrix[i][newJ] = matrix[i][j]
+                    matrix[i][j] = temp
+                }
             }
         }
     }
