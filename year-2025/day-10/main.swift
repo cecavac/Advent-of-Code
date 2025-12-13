@@ -7,10 +7,10 @@
 
 import Foundation
 
- let clicker = Clicker(Input.Input)
+let spammer = Spammer(Input.Input)
 
-let result1 = clicker.part1()
+let result1 = spammer.indicatorPresses()
 print("Result1: \(result1)")
 
-let result2 = clicker.part2()
+let result2 = spammer.joltagePresses()
 print("Result2: \(result2)")
